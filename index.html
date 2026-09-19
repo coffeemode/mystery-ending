@@ -432,7 +432,7 @@ textarea::placeholder{
     <div class="buttons">
 
         <button class="choice-btn main-choice"
-                onclick="showPage('pageContinue')">
+                onclick="chooseOption('أكمل الحكاية','pageContinue')">
 
             أكمل الحكاية
 
@@ -440,7 +440,7 @@ textarea::placeholder{
 
 
         <button class="choice-btn"
-                onclick="showPage('pageIdea')">
+                onclick="chooseOption('وش كانت الفكرة؟','pageIdea')">
 
             وش كانت الفكرة؟
 
@@ -448,7 +448,7 @@ textarea::placeholder{
 
 
         <button class="choice-btn"
-                onclick="showPage('pageEnd')">
+                onclick="chooseOption('أوقف الحكاية هنا','pageEnd')">
 
             أوقف الحكاية هنا
 
@@ -679,7 +679,7 @@ textarea::placeholder{
 
         <button
             class="choice-btn"
-            onclick="showPage('page1')"
+            onclick="goBackToChoices()"
         >
             العودة إلى الخيارات
         </button>
@@ -738,6 +738,18 @@ textarea::placeholder{
 
     <div class="divider"></div>
 
+
+    <div class="buttons">
+
+        <button
+            class="choice-btn main-choice"
+            onclick="finishStory()"
+        >
+            أغلق الحكاية
+        </button>
+
+    </div>
+
 </section>
 
 
@@ -747,7 +759,53 @@ textarea::placeholder{
 
 <script>
 
-/* الانتقال بين الصفحات */
+/* ========================================= */
+/* رابط Formspree */
+/* ========================================= */
+
+const FORMSPREE_URL = "https://formspree.io/f/xnpnjnna";
+
+
+/* ========================================= */
+/* إرسال إشعار بالاختيار ثم فتح الصفحة */
+/* ========================================= */
+
+function chooseOption(choice, pageId){
+
+    /* إرسال الاختيار لك */
+    fetch(FORMSPREE_URL, {
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json",
+            "Accept":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            message:"اختيار من الحكاية: " + choice,
+
+            _subject:"اختيار من الحكاية"
+
+        })
+
+    }).catch(function(error){
+
+        console.log("Notification error:", error);
+
+    });
+
+
+    /* فتح الصفحة مباشرة */
+    showPage(pageId);
+
+}
+
+
+/* ========================================= */
+/* فتح الصفحات */
+/* ========================================= */
 
 function showPage(pageId){
 
@@ -767,8 +825,11 @@ function showPage(pageId){
         selectedPage.classList.add("active");
 
         window.scrollTo({
+
             top:0,
+
             behavior:"smooth"
+
         });
 
     }
@@ -776,24 +837,89 @@ function showPage(pageId){
 }
 
 
-/* إرسال الإجابة */
+/* ========================================= */
+/* العودة للخيارات */
+/* ========================================= */
+
+function goBackToChoices(){
+
+    showPage("page1");
+
+}
+
+
+/* ========================================= */
+/* إنهاء الحكاية */
+/* ========================================= */
+
+function finishStory(){
+
+    /* إرسال إشعار نهائي لك */
+
+    fetch(FORMSPREE_URL, {
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json",
+            "Accept":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            message:"أنهت الحكاية واختارت إغلاقها نهائيًا.",
+
+            _subject:"إنهاء الحكاية"
+
+        })
+
+    }).catch(function(error){
+
+        console.log("Finish notification error:", error);
+
+    });
+
+
+    /* بعد الضغط يبقى في صفحة النهاية */
+
+    const button = document.querySelector("#pageEnd .main-choice");
+
+    button.innerText = "تم إغلاق الحكاية";
+
+    button.disabled = true;
+
+    button.style.opacity = "0.6";
+
+}
+
+
+/* ========================================= */
+/* إرسال إجابة سؤال الحكاية القادمة */
+/* ========================================= */
 
 function sendAnswer(event){
 
     event.preventDefault();
 
     const form = document.getElementById("storyForm");
+
     const success = document.getElementById("successMessage");
 
     const data = new FormData(form);
 
+
     fetch(form.action, {
+
         method:"POST",
+
         body:data,
+
         headers:{
             "Accept":"application/json"
         }
+
     })
+
     .then(function(response){
 
         if(response.ok){
@@ -809,6 +935,7 @@ function sendAnswer(event){
         }
 
     })
+
     .catch(function(){
 
         alert("تأكدي من اتصال الإنترنت ثم حاولي مرة أخرى.");
