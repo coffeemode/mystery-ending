@@ -1,1025 +1,745 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>النهاية...</title>
+<title>الحكاية</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;600&display=swap"
-rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* =========================
-   الأساس
-========================= */
 
 *{
     box-sizing:border-box;
 }
 
-html,
 body{
     margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
-}
-
-body{
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(28,43,70,.35),
-            transparent 45%
-        ),
-        linear-gradient(
-            135deg,
-            #020914,
-            #041326 50%,
-            #020914
-        );
-
-    color:#f3f0e8;
-
-    font-family:"Amiri",serif;
-
-    overflow-x:hidden;
-}
-
-
-/* =========================
-   النجوم
-========================= */
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:.28;
-
-    background-image:
-
-        radial-gradient(
-            circle at 12% 20%,
-            #d9b65c 0 1px,
-            transparent 1.5px
-        ),
-
-        radial-gradient(
-            circle at 82% 13%,
-            #fff 0 1px,
-            transparent 1.5px
-        ),
-
-        radial-gradient(
-            circle at 67% 74%,
-            #d9b65c 0 1px,
-            transparent 1.5px
-        ),
-
-        radial-gradient(
-            circle at 25% 83%,
-            #fff 0 1px,
-            transparent 1.5px
-        ),
-
-        radial-gradient(
-            circle at 91% 57%,
-            #d9b65c 0 1px,
-            transparent 1.5px
-        ),
-
-        radial-gradient(
-            circle at 45% 42%,
-            #fff 0 1px,
-            transparent 1.5px
-        );
-}
-
-
-/* =========================
-   الحاوية
-========================= */
-
-.wrapper{
-
-    width:100%;
-
-    max-width:850px;
-
     min-height:100vh;
+    background:
+    radial-gradient(circle at 50% 20%, rgba(28,43,70,.35), transparent 45%),
+    linear-gradient(135deg,#020914,#041326 50%,#020914);
 
-    margin:auto;
-
-    padding:55px 25px 80px;
-
+    color:#eeeae0;
+    font-family:"Amiri",serif;
     display:flex;
-
-    align-items:center;
-
     justify-content:center;
+    align-items:center;
+    padding:30px 15px;
 }
-
-
-/* =========================
-   صندوق القصة
-========================= */
 
 .story{
-
     width:100%;
-
+    max-width:850px;
+    background:rgba(3,13,27,.94);
+    border:1px solid #d8b45b;
+    border-radius:18px;
+    padding:55px 45px;
     position:relative;
-
-    padding:45px 42px 38px;
-
-    border:
-        1px solid
-        rgba(201,166,76,.32);
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(8,22,40,.96),
-            rgba(2,12,25,.97)
-        );
-
     box-shadow:
-
-        0 0 50px
-        rgba(0,0,0,.35),
-
-        inset 0 0 40px
-        rgba(201,166,76,.025);
+        0 0 40px rgba(0,0,0,.45),
+        inset 0 0 30px rgba(216,180,91,.03);
 }
 
-
-/* =========================
-   الزوايا الذهبية
-========================= */
+/* الزوايا */
 
 .story::before,
 .story::after{
-
     content:"";
-
     position:absolute;
-
     width:35px;
-
     height:35px;
-
-    border-color:
-        rgba(215,181,88,.65);
+    border-color:#d8b45b;
 }
-
 
 .story::before{
-
-    top:-1px;
-
-    right:-1px;
-
-    border-top:1px solid;
-
-    border-right:1px solid;
+    top:12px;
+    right:12px;
+    border-top:1px solid #d8b45b;
+    border-right:1px solid #d8b45b;
 }
-
 
 .story::after{
-
-    bottom:-1px;
-
-    left:-1px;
-
-    border-bottom:1px solid;
-
-    border-left:1px solid;
+    bottom:12px;
+    left:12px;
+    border-bottom:1px solid #d8b45b;
+    border-left:1px solid #d8b45b;
 }
-
-
-/* =========================
-   الصفحات
-========================= */
 
 .page{
-
     display:none;
-
-    animation:
-        fadeIn .7s ease;
+    animation:fadeIn .7s ease;
 }
 
-
 .page.active{
-
     display:block;
 }
 
-
 @keyframes fadeIn{
-
     from{
-
         opacity:0;
-
-        transform:
-            translateY(10px);
+        transform:translateY(10px);
     }
 
     to{
-
         opacity:1;
-
-        transform:
-            translateY(0);
+        transform:translateY(0);
     }
 }
 
-
-/* =========================
-   العنوان
-========================= */
-
-.title{
-
+.page-title{
     text-align:center;
-
     color:#d8b45b;
-
-    font-size:34px;
-
-    font-weight:700;
-
-    margin:
-        0 0 35px;
-
-    letter-spacing:.5px;
-
-    text-shadow:
-        0 0 18px
-        rgba(216,180,91,.12);
+    font-size:30px;
+    margin-bottom:35px;
 }
 
+.story-text{
+    font-size:21px;
+    line-height:2.25;
+    white-space:pre-line;
+    text-align:right;
+}
 
-.title::after{
+.gold{
+    color:#d8b45b;
+}
 
-    content:"";
+.center{
+    text-align:center;
+}
 
-    display:block;
-
-    width:55px;
-
+.divider{
+    width:90px;
     height:1px;
-
     background:#d8b45b;
-
-    margin:
-        16px auto 0;
-
-    opacity:.6;
+    margin:30px auto;
+    opacity:.7;
 }
 
+/* الأزرار */
 
-/* =========================
-   النص
-========================= */
+.buttons{
+    margin-top:45px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    align-items:center;
+}
 
-.text{
+.choice-btn{
+    width:100%;
+    max-width:430px;
+    padding:15px 25px;
 
+    background:transparent;
+    color:#eeeae0;
+
+    border:1px solid rgba(216,180,91,.65);
+    border-radius:10px;
+
+    font-family:"Amiri",serif;
     font-size:20px;
 
-    line-height:2.15;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.choice-btn:hover{
+    background:rgba(216,180,91,.08);
+    border-color:#d8b45b;
+    color:#d8b45b;
+    transform:translateY(-2px);
+}
+
+.main-choice{
+    background:rgba(216,180,91,.08);
+    color:#d8b45b;
+    border-color:#d8b45b;
+}
+
+/* الكتابة */
+
+.question{
+    color:#d8b45b;
+    font-size:25px;
+    line-height:1.8;
+    text-align:center;
+    margin:35px 0 20px;
+}
+
+textarea{
+    width:100%;
+    min-height:170px;
+
+    resize:vertical;
+
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(216,180,91,.55);
+    border-radius:12px;
 
     color:#eeeae0;
 
-    white-space:pre-line;
+    font-family:"Amiri",serif;
+    font-size:19px;
+    line-height:1.9;
+
+    padding:18px;
+
+    outline:none;
+    transition:.3s;
 }
 
-
-.text .gold{
-
-    color:#d9b65c;
-
-    text-shadow:
-        0 0 14px
-        rgba(217,182,92,.12);
+textarea:focus{
+    border-color:#d8b45b;
+    box-shadow:0 0 15px rgba(216,180,91,.08);
 }
 
-
-.text .white{
-
-    color:#fff;
+textarea::placeholder{
+    color:rgba(238,234,224,.45);
 }
 
-
-/* =========================
-   شريط التقدم
-========================= */
-
-.progress-area{
-
-    margin-bottom:32px;
-}
-
-
-.progress-info{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    color:
-        rgba(230,218,185,.55);
-
-    font-size:13px;
-
-    margin-bottom:8px;
-}
-
-
-.progress{
-
+.submit-btn{
     width:100%;
+    max-width:260px;
 
-    height:2px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    overflow:hidden;
-}
-
-
-.progress-bar{
-
-    height:100%;
-
-    width:50%;
+    padding:13px 25px;
 
     background:#d8b45b;
+    color:#07101d;
 
-    transition:
-        width .5s ease;
-
-    box-shadow:
-        0 0 10px
-        rgba(216,180,91,.35);
-}
-
-
-/* =========================
-   الاختيارات
-========================= */
-
-.choice-area{
-
-    margin-top:40px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-}
-
-
-.choice-btn{
-
-    position:relative;
-
-    width:100%;
-
-    padding:14px 20px;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            rgba(216,180,91,.09),
-            rgba(216,180,91,.02)
-        );
-
-    border:
-        1px solid
-        rgba(216,180,91,.48);
-
-    color:#e2c36c;
+    border:none;
+    border-radius:10px;
 
     font-family:"Amiri",serif;
-
     font-size:19px;
+    font-weight:bold;
 
     cursor:pointer;
-
-    overflow:hidden;
-
-    transition:.35s ease;
+    transition:.3s;
 }
 
-
-.choice-btn::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    right:-100%;
-
-    width:100%;
-
-    height:100%;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.12),
-            transparent
-        );
-
-    transition:.6s ease;
+.submit-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 20px rgba(216,180,91,.15);
 }
 
-
-.choice-btn:hover::before{
-
-    right:100%;
-}
-
-
-.choice-btn:hover{
-
-    border-color:#e4c66e;
-
-    box-shadow:
-        0 0 20px
-        rgba(216,180,91,.12);
-
-    transform:
-        translateY(-1px);
-}
-
-
-.choice-btn:disabled{
-
-    opacity:.55;
-
-    cursor:default;
-
-    transform:none;
-}
-
-
-/* =========================
-   زر رابط المحادثة
-========================= */
-
-.chat-link{
-
-    display:block;
-
-    width:fit-content;
-
-    min-width:190px;
-
-    margin:38px auto 0;
-
-    padding:12px 28px;
-
+.note{
+    margin-top:18px;
     text-align:center;
-
-    text-decoration:none;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            rgba(216,180,91,.10),
-            rgba(216,180,91,.02)
-        );
-
-    border:
-        1px solid
-        rgba(216,180,91,.58);
-
-    color:#e2c36c;
-
-    font-family:"Amiri",serif;
-
-    font-size:18px;
-
-    transition:.35s ease;
+    color:rgba(238,234,224,.55);
+    font-size:16px;
+    line-height:1.8;
 }
 
-
-.chat-link:hover{
-
-    border-color:#e4c66e;
-
-    box-shadow:
-        0 0 22px
-        rgba(216,180,91,.12);
-
-    transform:
-        translateY(-1px);
-}
-
-
-/* =========================
-   رسالة الخطأ
-========================= */
-
-.choice-error{
-
-    text-align:center;
-
-    color:#d8b45b;
-
-    font-size:15px;
-
-    margin-top:15px;
-
+.success{
     display:none;
+    text-align:center;
+    color:#d8b45b;
+    font-size:20px;
+    line-height:2;
+    margin-top:25px;
 }
 
-
-.choice-error.show{
-
-    display:block;
-}
-
-
-/* =========================
-   موبايل
-========================= */
+/* الجوال */
 
 @media(max-width:600px){
 
-    .wrapper{
-
-        padding:
-            25px 14px 50px;
+    body{
+        padding:15px 10px;
     }
-
 
     .story{
-
-        padding:
-            32px 22px 28px;
+        padding:40px 22px;
     }
 
-
-    .title{
-
-        font-size:29px;
-
-        margin-bottom:27px;
+    .page-title{
+        font-size:26px;
     }
 
+    .story-text{
+        font-size:19px;
+        line-height:2.15;
+    }
 
-    .text{
+    .question{
+        font-size:22px;
+    }
 
+    textarea{
         font-size:18px;
-
-        line-height:2.05;
-    }
-
-
-    .choice-btn{
-
-        font-size:17px;
-
-        padding:
-            13px 16px;
-    }
-
-
-    .chat-link{
-
-        font-size:17px;
+        min-height:150px;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
-<div class="wrapper">
-
-<main class="story">
+<div class="story">
 
 
-    <!-- =========================
-         شريط التقدم
-    ========================== -->
+<!-- ========================= -->
+<!-- الصفحة الأولى -->
+<!-- ========================= -->
 
-    <div
-        class="progress-area"
-        id="progressArea"
-    >
+<section class="page active" id="page1">
 
-        <div class="progress-info">
+    <div class="page-title">
+        الصفحة الأخيرة — الحكاية لم تنتهِ بعد
+    </div>
 
-            <span id="progressText">
-                الصفحة 1 من 2
-            </span>
+    <div class="story-text">
 
-            <span>
-                ...
-            </span>
+وصلتني آخر صفحة من الحكاية.
 
-        </div>
+كنت أتوقع أن أجد فيها شيئًا آخر...
 
+ربما مفاجأة جديدة.
 
-        <div class="progress">
+أو شيئًا يجعلني أفهم أخيرًا من يقف خلف كل هذه التفاصيل.
 
-            <div
-                class="progress-bar"
-                id="progressBar"
-            ></div>
+لكن هذه المرة...
 
-        </div>
+كانت الصفحة مختلفة.
+
+كان فيها اعتذار.
+
+اعتذار من المجهول عن الموقف الذي حدث في العمل، وعن الطريقة التي وصلت بها بعض الأشياء إليّ، وعن الإحراج الذي ربما شعرت به أمام زملائي.
+
+توقفت عند الرسالة قليلًا.
+
+ولعلني تسرعت في الاستنتاج.
+
+ربما ظننت أن المجهول يحاول التقرب مني.
+
+وربما لهذا السبب بدأت أبحث عن معنى أكبر خلف كل شيء.
+
+القهوة...
+
+الحكاية...
+
+الهدايا...
+
+والرسائل.
+
+لكن المجهول، في النهاية، شخص لا يعرف عني الكثير.
+
+وربما كانت الفكرة أبسط بكثير مما تخيلت.
+
+ربما أراد فقط أن يجرب شيئًا مختلفًا.
+
+أن يصنع لحظة غير متوقعة في يوم عادي.
+
+كوب قهوة يصل في وقت لم أكن أتوقعه.
+
+ثم حكاية تجعلني أتساءل:
+
+من فعل هذا؟
+
+ولماذا؟
+
+ثم صفحة أخرى...
+
+ثم صفحة أخرى.
+
+تجربة صغيرة تجعل اليوم العادي مختلفًا قليلًا.
+
+لم تكن بالضرورة محاولة للتقرب مني.
+
+ولم يكن هناك شيء مطلوب مني في المقابل.
+
+ربما كان الهدف فقط...
+
+أن أعيش تجربة جديدة.
+
+وأن يكون هناك شيء لطيف يحدث في يومي.
+
+شيء أتذكره لاحقًا وأقول:
+
+<span class="gold">كان يومًا عاديًا... ثم حدث شيء مختلف.</span>
+
+وربما هذا وحده كان كافيًا.
+
+لكن يبدو أن بعض الأشياء الجميلة في فكرتها لم تكن جميلة بالطريقة نفسها بالنسبة لي.
+
+فالمفاجأة، عندما تصل إلى مكان أو وقت غير مناسب، قد تتحول من شيء لطيف إلى موقف محرج.
+
+وهنا فهم المجهول ذلك.
+
+ولهذا كانت هناك رسالة الاعتذار.
+
+والاعتذار هذه المرة لم يكن لتغيير ما حدث، ولا لإقناعي بشيء...
+
+فقط كان اعتذارًا لأنه أدرك أن الطريقة لم تكن مناسبة.
+
+ومن هنا...
+
+لن يكون هناك شيء مفاجئ يصل إلى مكان عملي.
+
+لا هدية.
+
+ولا مندوب يحمل شيئًا أخرج لاستلامه.
+
+ولا موقف يجعلني مضطرة لأن أشرح لأحد ما يحدث.
+
+الحكاية الآن أصبحت هنا فقط.
+
+على الشاشة.
+
+وأنا من أقرر إن كنت أريد فتح الصفحة التالية أم لا.
+
+وليس عليّ أن أقرر الآن.
+
+يمكنني أن أغلق الصفحة اليوم.
+
+وأعود إليها بعد أيام.
+
+أو أسابيع.
+
+أو حتى أشهر.
+
+وإذا عدت...
+
+فستبقى الحكاية هنا.
+
+تنتظرني دون موعد.
+
+ودون أن تطلب مني شيئًا.
+
+ولأول مرة منذ بدأت الحكاية...
+
+لم يكن هناك شيء مخبأ عني.
+
+ولا شيء مطلوب مني.
+
+فقط ثلاثة أبواب...
+
+وأنا من أختار أيها أفتح.
 
     </div>
 
 
+    <div class="divider"></div>
 
-    <!-- =========================
-         الصفحة الأولى
-    ========================== -->
 
-    <section
-        class="page active"
-        id="page1"
-    >
+    <div class="buttons">
 
-        <h1 class="title">
-            النهاية
-        </h1>
+        <button class="choice-btn main-choice"
+                onclick="showPage('pageContinue')">
 
+            أكمل الحكاية
 
-        <div class="text">
+        </button>
 
-والآن...
 
-أنتِ هنا.
+        <button class="choice-btn"
+                onclick="showPage('pageIdea')">
 
-بعد كوب القهوة.
+            وش كانت الفكرة؟
 
-وبعد يومٍ آخر.
+        </button>
 
-وبعد كل تلك التفاصيل الصغيرة التي ربما لم تكوني ستلاحظينها لو لم تبدأ الحكاية.
 
-الغريب...
+        <button class="choice-btn"
+                onclick="showPage('pageEnd')">
 
-أن بعض الحكايات تبدأ بشيء بسيط جدًا.
+            أوقف الحكاية هنا
 
-كوب قهوة.
+        </button>
 
-ثم كلمة.
+    </div>
 
-ثم صفحة.
+</section>
 
-ثم صفحة أخرى.
 
-وفجأة...
 
-تجدين نفسكِ في مكان لم تخططي للوصول إليه.
+<!-- ========================= -->
+<!-- أكمل الحكاية -->
+<!-- ========================= -->
 
-وربما هذا هو الشيء الغريب في الحكايات.
+<section class="page" id="pageContinue">
 
-أنها لا تخبرنا منذ البداية إلى أين ستأخذنا.
+    <div class="page-title">
+        الصفحة التالية
+    </div>
 
-هذه المرة أيضًا...
 
-كان هناك شيء آخر لم يُقل.
-
-فالقهوة كانت تحمل معنى.
-
-كانت مجرد لحظة صغيرة وسط يوم طويل.
-
-شيئًا لطيفًا يصل في الوقت الذي تحتاجين فيه إلى لحظة مختلفة.
-
-ثم جاء الكيس.
-
-وكان فارغًا.
-
-وربما بدا الأمر غريبًا.
-
-لكن الفراغ أحيانًا لا يعني أن شيئًا ناقص.
-
-أحيانًا...
-
-يعني أن هناك مساحة لشيء لم يحدث بعد.
-
-<span class="gold">
-تجربة جديدة.
-
-مكان لم تريه.
-
-ضحكة لم تأتِ بعد.
-
-أو ذكرى لا تعرفين الآن أنها ستصبح يومًا جزءًا من حكايتكِ.
-</span>
-
-لكن...
-
-ربما لم تكن كل تفاصيل الحكاية في مكانها الصحيح.
-
-وربما بعض الأشياء، عندما نضعها في المكان الخطأ، تفقد شيئًا من جمالها.
-
-ولهذا...
-
-هناك شيء واحد أريد أن يكون واضحًا.
-
-إذا جعلتكِ هذه الحكاية تشعرين بأي إحراج، أو جعلتكِ تشعرين أن وجود الهدايا أو المندوب في مكان عملكِ وضعكِ في موقف لم تختاريه...
-
-<span class="gold">
-فهذا لم يكن ما أردته.
-</span>
-
-ولذلك لن تكون هناك هدية أخرى.
-
-ولا مندوب آخر.
-
-ولا شيء يجعلكِ تخرجين من عملكِ لتعرفي ماذا يوجد في الصفحة التالية.
-
-هذه المرة...
-
-لن يأتي شيء إلى بابكِ.
-
-بل ستبقى الحكاية هنا.
-
-على الشاشة.
-
-هادئة...
-
-كما بدأت.
-
-وفي البداية...
-
-كنتِ قد اخترتِ بنفسكِ:
-
-<span class="gold">
-أكمل الحكاية.
-</span>
-
-لذلك بقي سؤال واحد فقط.
-
-هل تريدين أن تكملي؟
-
-ليس لأن هناك شيئًا يجب أن تعرفيه.
-
-وليس لأن الحكاية تنتظر منكِ شيئًا.
-
-فقط...
-
-لأن الفضول أحيانًا يكون سببًا كافيًا لفتح صفحة أخرى.
-
-أما إذا شعرتِ أن الحكاية وصلت إلى مكانها الأخير...
-
-فلا بأس.
-
-بعض الحكايات لا تحتاج إلى نهاية كبيرة.
-
-يكفي أن تتوقف في اللحظة المناسبة.
-
-لذلك...
-
-<span class="gold">
-هذه المرة، الاختيار لكِ.
-</span>
-
-        </div>
-
-
-        <!-- الاختيارات -->
-
-        <div class="choice-area">
-
-            <button
-                class="choice-btn"
-                type="button"
-                onclick="showChoicePage('continue')"
-            >
-                أكمل الحكاية
-            </button>
-
-
-            <button
-                class="choice-btn"
-                type="button"
-                onclick="showChoicePage('end')"
-            >
-                أنهي الحكاية
-            </button>
-
-        </div>
-
-
-        <div
-            id="choiceError"
-            class="choice-error"
-        >
-            حدث خطأ بسيط، حاولي مرة أخرى.
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         صفحة أكمل الحكاية
-    ========================== -->
-
-    <section
-        class="page"
-        id="continuePage"
-    >
-
-        <h1 class="title">
-            المجهول
-        </h1>
-
-
-        <div class="text">
+    <div class="story-text">
 
 إذًا...
 
-اخترتِ أن تكملي.
+اخترت أن أكمل الحكاية.
 
-وربما هذه المرة ستكون الحكاية مختلفة قليلًا.
+لكن هذه المرة...
 
-لن يكون هناك كوب آخر.
+لن تكون هناك صفحة جديدة الآن.
 
-ولا هدية.
+فبعض الحكايات تحتاج أن تأخذ وقتها.
 
-ولا مندوب يظهر في منتصف يومكِ.
+وربما الصفحة القادمة لا يجب أن تكون جاهزة قبل أن أعرف أنا ماذا أتمنى أن يكون فيها.
 
-فقط...
+لذلك...
 
-مكان صغير على الشاشة.
+ستكتمل الحكاية في وقت آخر.
 
-مكان تستطيعين فيه أن تتحدثي مع المجهول.
+بعد أيام...
 
-لا تعرفين اسمه.
+أو أسابيع...
 
-ولا تحتاجين إلى معرفته.
+أو حتى أشهر.
 
-يمكنكِ أن تسألي.
+لا يوجد موعد محدد.
 
-عن القهوة.
+ولا يوجد شيء يجب أن يحدث الآن.
 
-عن الكيس الفارغ.
+لكن قبل أن تغلقي هذه الصفحة...
 
-عن الحكاية.
+هناك سؤال واحد.
 
-أو حتى عن شيء لم يكن له علاقة بكل ما سبق.
+    </div>
 
-المهم...
 
-أن هذه المرة لن تكون هناك صفحات مكتوبة مسبقًا بالكامل.
+    <div class="question">
 
-ستكون هناك محادثة.
+        ماذا تتمنين أن يحدث في الحكاية القادمة؟
 
-أنتِ تكتبين.
+    </div>
 
-والمجهول يجيب.
 
-ثم تسألين.
+    <div class="story-text center">
 
-ثم يجيب.
+        شيء لطيف؟
 
-وهكذا...
+        <br>
 
-ربما تكتشفين أن بعض الأسئلة أجمل من إجاباتها.
+        تجربة جديدة؟
 
-وربما...
+        <br>
 
-تكتشفين أن المجهول لم يكن يريد منكِ أن تعرفي كل شيء.
+        موقف مختلف؟
 
-فقط أن تسألي.
+        <br>
 
-<span class="gold">
-إذا كنتِ مستعدة...
+        مكان؟
 
-ابدئي بالسؤال الأول.
-</span>
+        <br>
+
+        أو حتى شيء لم يخطر على البال؟
+
+        <br><br>
+
+        اكتبي ما تتمنين...
+
+        <br>
+
+        والحكاية القادمة قد تبدأ من هنا.
+
+    </div>
+
+
+    <form
+        id="storyForm"
+        action="https://formspree.io/f/xnpnjnna"
+        method="POST"
+        onsubmit="sendAnswer(event)"
+    >
+
+        <textarea
+            name="message"
+            id="message"
+            placeholder="اكتبي هنا ما تتمنين أن يحدث في الحكاية القادمة..."
+            required
+        ></textarea>
+
+
+        <input
+            type="hidden"
+            name="_subject"
+            value="إجابة الحكاية القادمة"
+        >
+
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                أرسل ما تتمنين
+            </button>
 
         </div>
 
-
-        <a
-            class="chat-link"
-            href="https://coffeemode.github.io/mystery-chat/"
-        >
-            دخول إلى المحادثة
-        </a>
-
-    </section>
+    </form>
 
 
+    <div id="successMessage" class="success">
 
-    <!-- =========================
-         صفحة إنهاء الحكاية
-    ========================== -->
+        وصلتني فكرتكِ...
 
-    <section
-        class="page"
-        id="endPage"
-    >
+        <br>
 
-        <h1 class="title">
-            اعتذار
-        </h1>
+        وربما تكون هي بداية الصفحة القادمة.
+
+    </div>
 
 
-        <div class="text">
+    <div class="note">
 
-إذا اخترتِ أن تنتهي الحكاية هنا...
+        ويمكنكِ كتابة أي شيء يخطر في بالكِ،
+        حتى لو كان بسيطًا جدًا.
 
-فهذا يكفي.
+    </div>
 
-وأعتذر.
+</section>
 
-ليس فقط عن الأشياء التي حدثت...
 
-بل عن أي لحظة شعرتِ فيها أن هذه الحكاية تجاوزت المساحة التي كنتِ مرتاحة لها.
 
-لم يكن المقصود أن أضعكِ في موقف محرج.
+<!-- ========================= -->
+<!-- وش كانت الفكرة -->
+<!-- ========================= -->
 
-ولا أن أجعلكِ تشعرين بأنكِ مطالبة بأي شيء.
+<section class="page" id="pageIdea">
 
-ولا أن تكون هناك هدايا أو رسائل تصل إليكِ بطريقة تجعلكِ غير مرتاحة.
+    <div class="page-title">
+        وش كانت الفكرة؟
+    </div>
 
-كانت الفكرة في البداية مختلفة.
 
-لحظة بسيطة.
+    <div class="story-text">
 
-قهوة.
+ربما ما زال هناك سؤال واحد في بالي:
 
-ثم حكاية.
+<span class="gold">لماذا بدأت هذه الحكاية أصلًا؟</span>
+
+ربما ظننت أن وراء كل هذه التفاصيل شخصًا يحاول التقرب مني.
+
+لكن الحقيقة...
+
+أن الفكرة كانت أبسط من ذلك.
+
+لم تكن محاولة لفرض وجود شخص جديد في حياتي.
+
+ولا كان هناك شيء مطلوب مني في المقابل.
+
+كانت مجرد تجربة.
+
+شيء مختلف يحدث في يوم عادي.
+
+كوب قهوة يصل في وقت لم أكن أتوقعه.
 
 ثم فضول.
 
-لكن أحيانًا...
+ثم حكاية.
 
-لا تسير الأشياء بالطريقة التي تخيلناها.
+ثم تجربة جديدة.
+
+الهدف كان فقط أن يكون هناك شيء لطيف يحدث في يومي.
+
+شيء يجعل اليوم العادي مختلفًا قليلًا.
+
+شيء أستمتع به...
+
+وأتذكره لاحقًا بابتسامة.
+
+لكن بعض التفاصيل لم تصل بالطريقة المناسبة.
 
 ولهذا...
 
-من هنا تتوقف الحكاية.
+كان الاعتذار جزءًا من الحكاية أيضًا.
 
-لن تكون هناك صفحات أخرى.
+لأن الفكرة مهما كانت لطيفة، تظل الطريقة مهمة.
 
-ولا هدايا أخرى.
+والآن...
 
-ولا مندوب.
+أصبحت الحكاية هنا.
 
-ولا شيء آخر ينتظر منكِ أن تفعليه.
+بدون ضغط.
 
-<span class="gold">
-شكرًا لأنكِ قرأتِ حتى هنا.
+وبدون انتظار.
 
-وأتمنى لكِ أيامًا هادئة وجميلة.
+وإذا أردت أن تستمر...
 
-النهاية.
-</span>
+فسيكون ذلك لأنني أنا اخترت أن أفتح الصفحة التالية.
 
-        </div>
-
-    </section>
+    </div>
 
 
-</main>
+    <div class="divider"></div>
+
+
+    <div class="buttons">
+
+        <button
+            class="choice-btn"
+            onclick="showPage('page1')"
+        >
+            العودة إلى الخيارات
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- النهاية -->
+<!-- ========================= -->
+
+<section class="page" id="pageEnd">
+
+    <div class="page-title">
+        النهاية
+    </div>
+
+
+    <div class="story-text">
+
+إذًا...
+
+قررت أن تنتهي الحكاية هنا.
+
+وربما لا تحتاج كل الحكايات إلى صفحة أخرى.
+
+شكرًا لأنكِ قرأتِها حتى هذه الصفحة.
+
+وأعتذر مرة أخرى عن أي موقف سبب لكِ إحراجًا.
+
+لم يكن ذلك هو الهدف.
+
+ومن هنا...
+
+لا يوجد شيء آخر ينتظركِ.
+
+ولا تحتاجين إلى فعل أي شيء.
+
+أتمنى فقط أن يبقى من هذه الحكاية شيء لطيف.
+
+حتى لو كان بسيطًا.
+
+وحتى لو كانت نهايتها هنا.
+
+بعض الحكايات لا تحتاج إلى أن تستمر حتى تكون جميلة.
+
+يكفي أنها حدثت.
+
+<span class="gold">النهاية.</span>
+
+    </div>
+
+
+    <div class="divider"></div>
+
+</section>
+
 
 </div>
 
@@ -1027,179 +747,77 @@ body::before{
 
 <script>
 
-/* =========================
-   اختيار الصفحة
-========================= */
+/* الانتقال بين الصفحات */
 
-async function showChoicePage(choice){
+function showPage(pageId){
 
-    const buttons =
-        document.querySelectorAll(
-            ".choice-btn"
-        );
+    const pages = document.querySelectorAll(".page");
 
-    const choiceError =
-        document.getElementById(
-            "choiceError"
-        );
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
 
 
-    /* منع الضغط أكثر من مرة */
+    const selectedPage = document.getElementById(pageId);
 
-    buttons.forEach(
-        button => {
+    if(selectedPage){
 
-            button.disabled = true;
-
-        }
-    );
-
-
-    choiceError.classList.remove(
-        "show"
-    );
-
-
-    /* إنشاء بيانات الإرسال */
-
-    const formData =
-        new FormData();
-
-
-    if(choice === "continue"){
-
-        formData.append(
-            "choice",
-            "أكمل الحكاية"
-        );
-
-    }else{
-
-        formData.append(
-            "choice",
-            "أنهي الحكاية"
-        );
-
-    }
-
-
-    formData.append(
-        "_subject",
-        "اختيار حكاية النهاية"
-    );
-
-
-    try{
-
-        /* إرسال الاختيار إلى Formspree */
-
-        const response =
-            await fetch(
-                "https://formspree.io/f/xnpnjnna",
-                {
-                    method:"POST",
-
-                    body:formData,
-
-                    headers:{
-                        "Accept":
-                            "application/json"
-                    }
-                }
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Formspree error"
-            );
-
-        }
-
-
-        /* إخفاء الصفحة الأولى */
-
-        document
-            .getElementById("page1")
-            .classList.remove(
-                "active"
-            );
-
-
-        /* إخفاء شريط التقدم */
-
-        document
-            .getElementById("progressArea")
-            .style.display =
-                "none";
-
-
-        /* فتح الصفحة حسب الاختيار */
-
-        if(choice === "continue"){
-
-            document
-                .getElementById(
-                    "continuePage"
-                )
-                .classList.add(
-                    "active"
-                );
-
-        }else{
-
-            document
-                .getElementById(
-                    "endPage"
-                )
-                .classList.add(
-                    "active"
-                );
-
-        }
-
-
-        /* العودة لأعلى الصفحة */
+        selectedPage.classList.add("active");
 
         window.scrollTo({
-
             top:0,
-
             behavior:"smooth"
-
         });
-
-
-    }catch(error){
-
-        /* إذا فشل الإرسال */
-
-        buttons.forEach(
-            button => {
-
-                button.disabled =
-                    false;
-
-            }
-        );
-
-
-        choiceError.textContent =
-            "لم يتم إرسال الاختيار، تأكدي من الاتصال بالإنترنت وحاولي مرة أخرى.";
-
-
-        choiceError.classList.add(
-            "show"
-        );
 
     }
 
 }
 
+
+/* إرسال الإجابة */
+
+function sendAnswer(event){
+
+    event.preventDefault();
+
+    const form = document.getElementById("storyForm");
+    const success = document.getElementById("successMessage");
+
+    const data = new FormData(form);
+
+    fetch(form.action, {
+        method:"POST",
+        body:data,
+        headers:{
+            "Accept":"application/json"
+        }
+    })
+    .then(function(response){
+
+        if(response.ok){
+
+            form.style.display="none";
+
+            success.style.display="block";
+
+        }else{
+
+            alert("حدث خطأ بسيط، حاولي مرة أخرى.");
+
+        }
+
+    })
+    .catch(function(){
+
+        alert("تأكدي من اتصال الإنترنت ثم حاولي مرة أخرى.");
+
+    });
+
+}
+
 </script>
 
-
 </body>
-
 </html>
